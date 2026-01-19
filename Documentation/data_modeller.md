@@ -8,8 +8,8 @@
 ---
 
 ### Student
-- En student är inskriven i ett eller flera program.  
-  *Fristående kurser organiseras under programmet "Fristående".*
+- En student är inskriven i ett eller inget program.  
+  *Fristående kurser organiseras under standalone i kurser.*
 - En student kan vara en del av en klass.
 - En student kan gå på en eller flera kurser.
 
@@ -42,18 +42,19 @@
 
 ### Anläggning
 - En anläggning erbjuder ett eller flera program.
-- En anläggning erbjuder kurser via sina program.
+- En anläggning erbjuder en eller flera kurser.
 
 ---
 
 ### Kurs
-- En kurs tillhör exakt ett program.
+- En kurs kan tillhör ett program eller vara fristående.
 - En kurs kan ha flera studenter.
 - En kurs har exakt en utbildare.
 
 ---
 ### Omgång
 - En omgång kan ha en eller flera klasser.
+- En omgång kan ha en eller flera program.
 
 ## Sammanfattning – VG vs QA-förtydliganden
 

@@ -62,24 +62,27 @@ Databasen ska hantera flera typer av personer, exempelvis:
 Samtliga personer ska ha följande grundinformation:
 - Förnamn
 - Efternamn
+
+Känsliga personuppgifter hanteras i ett separat table och innehåller:
+- Personnummer
 - E-postadress
-- Telefonnummer
 - Adress
-
-Personnummer ska **endast lagras för studenter** och hanteras separat som känslig personuppgift.
-
+- Telefonnummer
+- lön *för dem som är anställda av skolan*
 ---
 
 ### 5.2 Studenter
 Utöver grundinformation enligt 5.1 ska databasen lagra följande för studenter:
-- Personnummer
+- Poäng
+- Är_aktiv
+- Program_id (kan vara null om studenten endast går fristående kurser)
 
 Alla studenter måste vara inskrivna i:
 - Ett program **eller**
 - En fristående kurs
 
 Det finns inga studenter utan koppling till utbildning.  
-En student kan läsa ett program och en fristående kurs parallellt.
+En student kan läsa ett program och en eller flera fristående kurs parallellt.
 
 Känsliga personuppgifter ska lagras i separata entiteter för att möjliggöra strikt åtkomstkontroll.
 
