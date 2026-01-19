@@ -90,7 +90,7 @@ Känsliga personuppgifter ska lagras i separata entiteter för att möjliggöra 
 - Utbildare kan vara:
   - Externa konsulter
   - Fast anställda utbildare (**BONUS**)
-- För närvarande finns en fastanställd kursledare, övriga är konsulter
+- För närvarande finns inga fastanställd kursledare, i framtiden ska dem kunna anställa kursledere. Nu är alla kursledare konsulter
 
 ---
 
