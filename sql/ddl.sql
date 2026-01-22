@@ -72,8 +72,8 @@ CREATE TABLE IF NOT EXISTS "Teacher" (
   "teacher_id" int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "person_id" int NOT NULL REFERENCES "Person"("person_id"),
   "consult_id" int REFERENCES "Consult"("consult_id"),
-  "employment_type" varchar(20)
-    CHECK (employment_type IN ('Anställd', 'Konsult')),
+  "employment_type" varchar(20),
+  CHECK (employment_type IN ('Anställd', 'Konsult')),
 
   CHECK (
     (employment_type = 'Konsult' AND consult_id IS NOT NULL)
@@ -137,6 +137,7 @@ CREATE TABLE IF NOT EXISTS "StudentCourse" (
     (course_completed = false AND completion_date IS NULL)
     OR
     (course_completed = true AND completion_date IS NOT NULL)
+  )
 );
 
 CREATE TABLE IF NOT EXISTS "StandaloneCourseFacility" (
@@ -167,20 +168,19 @@ RETURNS TRIGGER AS $$
 DECLARE
   course_points INT;
 BEGIN
-  -- Gets points from course
+  -- Hämta poäng från kurs
   SELECT points
   INTO course_points
   FROM "Course"
   WHERE course_code = NEW.course_code;
 
-  IF course_points IS NULL THEN
-    RAISE EXCEPTION 'Ingen poäng hittades för kurs %', NEW.course_code;
+  -- Skydd: ge inte poäng två gånger
+  IF NEW.awarded_points IS NOT NULL AND NEW.awarded_points > 0 THEN
+    RETURN NEW;
   END IF;
 
-  -- Set awarded_points automaticly
   NEW.awarded_points := course_points;
 
-  -- Uppdate student
   UPDATE "Student"
   SET
     points = points + course_points,
@@ -193,9 +193,11 @@ $$ LANGUAGE plpgsql;
 
 
 /* Trigger for award student points */
+DROP TRIGGER IF EXISTS trg_award_student_points ON "StudentCourse";
+
 CREATE TRIGGER trg_award_student_points
-BEFORE UPDATE OF course_completed
+AFTER INSERT OR UPDATE OF course_completed
 ON "StudentCourse"
 FOR EACH ROW
-WHEN (OLD.course_completed = false AND NEW.course_completed = true)
+WHEN (NEW.course_completed = true)
 EXECUTE FUNCTION award_student_points();
