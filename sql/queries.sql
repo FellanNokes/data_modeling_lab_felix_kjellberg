@@ -55,16 +55,7 @@ JOIN "Course" c ON c.course_code = pcf.course_code
 JOIN "Facility" f ON f.facility_id = pcf.facility_id
 ORDER BY pr.name;
 
-\echo '--- 6. standalone courses ---'
-SELECT
-  c.course_code,
-  c.name,
-  f.name AS facility
-FROM "StandaloneCourseFacility" scf
-JOIN "Course" c ON c.course_code = scf.course_code
-JOIN "Facility" f ON f.facility_id = scf.facility_id;
-
-\echo '--- 7. What courses teachers has ---'
+\echo '--- 6. What courses teachers has ---'
 SELECT
   p.first_name,
   p.last_name,
@@ -75,7 +66,7 @@ JOIN "Person" p ON p.person_id = t.person_id
 JOIN "Course" c ON c.teach_id = t.teacher_id
 ORDER BY p.last_name;
 
-\echo '--- 8. Consults, Company and which courses they have ---'
+\echo '--- 7. Consults, Company and which courses they have ---'
 SELECT
   p.first_name,
   p.last_name,
@@ -88,7 +79,7 @@ JOIN "Company" co ON co.organization_number = cn.organization_number
 JOIN "Course" c ON c.teach_id = t.teacher_id
 WHERE t.employment_type = 'Konsult';
 
-\echo '--- 9. Education leader and which programs the have ---'
+\echo '--- 8. Education leader and which programs the have ---'
 SELECT
   p.first_name,
   p.last_name,
@@ -97,7 +88,7 @@ FROM "Program" pr
 JOIN "EducationLeader" el ON el.education_leader_id = pr.education_leader_id
 JOIN "Person" p ON p.person_id = el.person_id;
 
-\echo '--- 10. Students in Stockholm ---'
+\echo '--- 9. Students in Stockholm ---'
 SELECT
   p.first_name,
   p.last_name,

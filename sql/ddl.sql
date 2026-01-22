@@ -162,29 +162,36 @@ COMMENT ON TABLE "StudentCourse" IS 'UNIQUE(student_id, course_code)';
 COMMENT ON TABLE "StandaloneCourseFacility" IS 'UNIQUE (course_code, facility_id), This table exist so we dont have to mix in program with standalone courses';
 
 
-/* Function for awarding points on completion */
+/* Function för award points i student course */
 CREATE OR REPLACE FUNCTION award_student_points()
 RETURNS TRIGGER AS $$
 DECLARE
   course_points INT;
 BEGIN
-  -- Hämta poäng från kurs
-  SELECT points
+  -- hämta poäng från kurs
+  SELECT c.points
   INTO course_points
-  FROM "Course"
-  WHERE course_code = NEW.course_code;
+  FROM "Course" c
+  WHERE c.course_code = NEW.course_code;
 
-  -- Skydd: ge inte poäng två gånger
-  IF NEW.awarded_points IS NOT NULL AND NEW.awarded_points > 0 THEN
+  IF course_points IS NULL THEN
+    RAISE EXCEPTION 'Ingen poäng hittades för kurs %', NEW.course_code;
+  END IF;
+
+  -- skydd: ge inte poäng om awarded_points redan satts
+  IF COALESCE(NEW.awarded_points, 0) > 0 THEN
     RETURN NEW;
   END IF;
 
-  NEW.awarded_points := course_points;
+  -- 1) sätt awarded_points i StudentCourse (måste vara UPDATE eftersom vi är AFTER-trigger)
+  UPDATE "StudentCourse"
+  SET awarded_points = course_points
+  WHERE student_course_id = NEW.student_course_id;
 
+  -- 2) uppdatera studentens totalpoäng + active
   UPDATE "Student"
-  SET
-    points = points + course_points,
-    is_active = TRUE
+  SET points = points + course_points,
+      is_active = TRUE
   WHERE student_id = NEW.student_id;
 
   RETURN NEW;
@@ -193,11 +200,17 @@ $$ LANGUAGE plpgsql;
 
 
 /* Trigger for award student points */
-DROP TRIGGER IF EXISTS trg_award_student_points ON "StudentCourse";
+DROP TRIGGER IF EXISTS trg_award_points_insert ON "StudentCourse";
+DROP TRIGGER IF EXISTS trg_award_points_update ON "StudentCourse";
 
-CREATE TRIGGER trg_award_student_points
-AFTER INSERT OR UPDATE OF course_completed
-ON "StudentCourse"
+CREATE TRIGGER trg_award_points_insert
+AFTER INSERT ON "StudentCourse"
 FOR EACH ROW
-WHEN (NEW.course_completed = true)
+WHEN (NEW.course_completed = TRUE)
+EXECUTE FUNCTION award_student_points();
+
+CREATE TRIGGER trg_award_points_update
+AFTER UPDATE OF course_completed ON "StudentCourse"
+FOR EACH ROW
+WHEN (NEW.course_completed = TRUE AND OLD.course_completed = FALSE)
 EXECUTE FUNCTION award_student_points();

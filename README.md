@@ -1,4 +1,4 @@
-# data_modeling_lab_felix_kjellberg
+# Data modellering Lab
 
 
 
