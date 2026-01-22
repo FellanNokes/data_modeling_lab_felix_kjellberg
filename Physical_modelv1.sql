@@ -1,3 +1,6 @@
+CREATE SCHEMA IF NOT EXISTS yrkesco;
+SET search_path TO yrkesco;
+
 CREATE TABLE "Person" (
   "person_id" int PRIMARY KEY,
   "first_name" varchar(30) NOT NULL,
@@ -35,14 +38,14 @@ CREATE TABLE "Student" (
   "person_id" int NOT NULL,
   "class_id" int,
   "points" int NOT NULL DEFAULT 0,
-  "is_active" bool NOT NULL
+  "is_active" boolean NOT NULL
 );
 
 CREATE TABLE "Teacher" (
-  "teacher_id" int PRIMARY KEY,
+  "teacher_id" int PRIMARY KEY, 
   "person_id" int NOT NULL,
   "consult_id" int,
-  "employment_type" "VARCHAR(20)"
+  "employment_type" VARCHAR(20) Check "Anställd" or "Konsult"
 );
 
 CREATE TABLE "Consult" (
@@ -54,20 +57,20 @@ CREATE TABLE "Consult" (
 CREATE TABLE "Company" (
   "organization_number" varchar(10) PRIMARY KEY,
   "address_id" int NOT NULL,
-  "f_tax" bool NOT NULL
+  "f_tax" boolean NOT NULL
 );
 
 CREATE TABLE "Class" (
   "class_id" int PRIMARY KEY,
-  "name" varchar(42) NOT NULL,
+  "name" varchar(45) NOT NULL,
   "short_name" varchar(4) NOT NULL,
   "round_id" int NOT NULL
 );
 
 CREATE TABLE "Round" (
   "round_id" int PRIMARY KEY,
-  "start_year" dateyear NOT NULL,
-  "end_year" dateyear NOT NULL
+  "start_year" date year NOT NULL,
+  "end_year" date year NOT NULL
 );
 
 CREATE TABLE "ProgramRound" (
@@ -98,7 +101,7 @@ CREATE TABLE "Course" (
   "weeks" int NOT NULL,
   "short_description" varchar(255) NOT NULL,
   "teach_id" int NOT NULL,
-  "standalone" bool NOT NULL
+  "standalone" boolean NOT NULL
 );
 
 CREATE TABLE "ProgramCourseFacility" (
@@ -112,10 +115,10 @@ CREATE TABLE "StudentCourse" (
   "student_course_id" int PRIMARY KEY,
   "course_code" varchar(10) NOT NULL,
   "student_id" int NOT NULL,
-  "course_completed" bool NOT NULL DEFAULT false,
+  "course_completed" boolean NOT NULL DEFAULT false,
   "start_date" date NOT NULL,
   "completion_date" date,
-  "grade" string,
+  "grade" VARCHAR(2),
   "awarded_points" int
 );
 
