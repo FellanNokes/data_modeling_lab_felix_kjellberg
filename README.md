@@ -22,7 +22,7 @@ Efter att den konceptuella modellen kändes stabil fortsatte jag med att ta fram
 
 ### Syfte med den logiska modellen
 Målet är att skapa en modell som:
-- eliminerar alla många-till-många-relationer (M–M) genom att införa **bridge tables**  
+- eliminerar alla många-till-många-relationer (M-M) genom att införa **bridge tables**  
 - säkerställer korrekt användning av **primärnycklar** och **främmande nycklar**
 - förtydligar entiteters relationer och kardinaliteter  
 - lägger grunden för en framtida fysisk modell utan att behöva göra större förändringar senare  
@@ -31,7 +31,7 @@ Målet är att skapa en modell som:
 ### Viktiga designbeslut
 Under arbetet med den logiska modellen definierades bland annat:
 
-- **Alla M–M-relationer ersattes av omkopplingstabeller**  
+- **Alla M-M-relationer ersattes av omkopplingstabeller**  
   Exempel:  
   `ProgramCourseFacility`, `StandaloneCourseFacility`, `StudentCourse`.
 
@@ -70,7 +70,7 @@ Det här visar hur viktigt det är att den logiska modellen är robust innan man
 Bilder på [alla logiska modeller](./documentation/logical_model)
 
 Slutresultat:
-![Konceptuell modell](./documentation/logical_model/logical_model_v9.png)
+![Konceptuell modell](./documentation/logical_model/logical_model_v10.png)
 
 ## Argument för att tredje normalformen (3NF) uppnås
 Datamodellen uppfyller tredje normalformen (3NF) eftersom alla icke-nyckelattribut i varje tabell beror direkt på primärnyckeln och inga transitiva beroenden förekommer. Känslig data, adressinformation, kursresultat och organisatorisk information har separerats i egna entiteter för att säkerställa dataintegritet och minimera redundans.
@@ -86,7 +86,7 @@ Samtliga tabeller har utformats för att följa 3NF. Detta innebär att:
 - Alla tabeller har en primärnyckel.
 - Alla attribut beror direkt på primärnyckeln.
 - Det finns inga transistiva beroenden.  
-Exempelvis lagras adressdata i en egen tabell och kopplas via `address_id`, och känsliga personuppgifter ligger i `PersonSensitiveData` i en ren 1–1-relation mot `Person`.
+Exempelvis lagras adressdata i en egen tabell och kopplas via `address_id`, och känsliga personuppgifter ligger i `PersonSensitiveData` i en ren 1-1-relation mot `Person`.
 
 **2. Identity-kolumner för primärnycklar**  
 De flesta primärnycklar genereras med `GENERATED ALWAYS AS IDENTITY`, vilket gör att PostgreSQL sköter ID-hanteringen automatiskt och minskar risken för krockar och manuella misstag.
