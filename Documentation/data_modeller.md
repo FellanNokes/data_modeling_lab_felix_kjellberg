@@ -54,7 +54,7 @@
 ---
 ### Omgång
 - En omgång kan ha en eller flera klasser.
-- En omgång kan ha en eller flera program.
+- En omgång kan ha ett eller flera program.
 
 ## Sammanfattning – VG vs QA-förtydliganden
 
