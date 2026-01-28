@@ -29,7 +29,7 @@ docker compose up -d
 docker exec -it yrkesco bash
 ```
 
-Startar psql-klienten och ansluter till din databas:
+Startar psql-klienten och ansluter till din databas (byt ut database name mot det som står i .env efter POSTGRES_DB=):
 ```bash
 psql -U postgres -d [Database name]
 ```
@@ -60,7 +60,7 @@ Kör queries för att testa databasen:
 Arbetet börjar med att analysera och bryta ned kravspecifikationen:  
 [**Kravspecifikation för Yrkesco-databasen**](./documentation/kravspecifikation_databas_yrkesco_v1.1.md).
 
-Utifrån denna identifierar jag de centrala verksamhetsbehoven och tar fram de viktigaste entiteterna, deras attribut samt hur de relaterar till varandra. Det första steget är att skapa en **konceptuell modell**, där fokus ligger helt på verksamhetslogik utan tekniska detaljer som primärnycklar, datatyper eller normalisering.
+Utifrån denna identifierar jag de centrala verksamhetsbehoven och tar fram de viktigaste entiteterna. Det första steget är att skapa en **konceptuell modell**, där fokus ligger helt på verksamhetslogik utan tekniska detaljer som primärnycklar, datatyper eller normalisering.
 
 När version 2 av modellen är färdig börjar strukturen bli tillräckligt stabil för att gå vidare med nästa steg:  
 [**Relationship Statements**](./documentation/data_modeller.md).
@@ -123,7 +123,7 @@ Under arbetet med den logiska modellen definierades bland annat:
 
 ### Övergång mot fysisk modell
 När den logiska modellen blev tillräckligt stabil kunde jag gå vidare till den fysiska modellen.  
-På grund av arbetet i detta steg behövde nästan inga strukturella förändringar göras senare, vilket sparade mycket tid.
+Tack vare arbetet i detta steg behövde nästan inga strukturella förändringar göras senare, vilket sparade mycket tid.
 
 Den fysiska modellen fick då:
 - faktiska `IDENTITY`-sekvenser på alla PK  
@@ -139,8 +139,6 @@ Bilder på [alla logiska modeller](./documentation/logical_model)
 Slutresultat:
 ![Konceptuell modell](./documentation/logical_model/logical_model_v10.png)
 
-## Argument för att tredje normalformen (3NF) uppnås
-Datamodellen uppfyller tredje normalformen (3NF) eftersom alla icke-nyckelattribut i varje tabell beror direkt på primärnyckeln och inga transitiva beroenden förekommer. Känslig data, adressinformation, kursresultat och organisatorisk information har separerats i egna entiteter för att säkerställa dataintegritet och minimera redundans.
 
 ## Fysiska Modellen
 
@@ -179,6 +177,9 @@ Allt utan risk att poäng ges två gånger.
 Eftersom fristående kurser inte ska kopplas till något program skapades en separat tabell:  
 `StandaloneCourseFacility`.  
 Den dedikerade tabellen gör att programlogiken hålls ren, samtidigt som fristående kurser kan kopplas till olika anläggningar vid behov.
+
+## Argument för att tredje normalformen (3NF) uppnås
+Datamodellen uppfyller tredje normalformen (3NF) eftersom alla icke-nyckelattribut i varje tabell beror direkt på primärnyckeln och inga transitiva beroenden förekommer. Känslig data, adressinformation, kursresultat och organisatorisk information har separerats i egna entiteter för att säkerställa dataintegritet och minimera redundans.
 
 ### Resultat
 
