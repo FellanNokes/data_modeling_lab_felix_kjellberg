@@ -1,5 +1,3 @@
-# Konceptuell Modell
-
 ## Entities och relationship statements
 ### Person
 - En person kan ha en eller flera roller: student, utbildare och/eller utbildningsledare.
@@ -18,6 +16,17 @@
 ### Utbildningsledare
 - En utbildningsledare ansvarar för exakt två program.
 - Varje program ansvaras av en utbildningsledare.
+- En utbildningsledare kan vara konsult
+
+---
+
+### Konsult
+- En konsult tillhör ett företag
+
+---
+
+### Företag
+- Ett företag har en eller flera konsulter
 
 ---
 
@@ -55,30 +64,4 @@
 ### Omgång
 - En omgång kan ha en eller flera klasser.
 - En omgång kan ha ett eller flera program.
-
-## Sammanfattning – VG vs QA-förtydliganden
-
-### VG / Bas (ursprungliga krav)
-- Person och rollstruktur (student, utbildare, utbildningsledare)
-- Relation mellan student och kurser
-- Relation mellan utbildare och kurser
-- Program består av flera kurser
-- Program består av flera klasser
-- Kurs har exakt en utbildare
-- Kurs kan ha flera studenter
-- Anläggning erbjuder ett eller flera program
-
-### Extra / Förtydliganden från Q&A med Elvin
-- En utbildningsledare ansvarar för exakt två program
-- Varje program ansvaras av en utbildningsledare
-- Begreppet klass och dess relationer:
-  - Klass består av flera studenter
-  - Klass genomför flera kurser
-  - Klass tillhör exakt ett program och en omgång
-- Omgång:
-  - En omgång kan ha en eller flera klasser
-- Studenter måste vara inskrivna i program eller fristående kurser
-- Fristående kurser organiseras under ett särskilt program
-- Utbildare kan vara kopplade till företag
-- Kurser erbjuds via anläggningarnas program
 
