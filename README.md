@@ -23,6 +23,7 @@ Startar PostgreSQL-containern i bakgrunden:
 
 ```bash
 docker compose up -d
+```
 
 Öppnar en interaktiv terminal inuti containern:
 ```bash
