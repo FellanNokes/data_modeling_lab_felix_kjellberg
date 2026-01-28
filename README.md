@@ -59,12 +59,12 @@ Kör queries för att testa databasen:
 ## Konceptuella Modellen
 
 Arbetet börjar med att analysera och bryta ned kravspecifikationen:  
-[**Kravspecifikation för Yrkesco-databasen**](documentation/kravspecifikation_databas_yrkesco_v1.1.md).
+[**Kravspecifikation för Yrkesco-databasen**](Documentation/kravspecifikation_databas_yrkesco_v1.1.md).
 
 Utifrån denna identifierar jag de centrala verksamhetsbehoven och tar fram de viktigaste entiteterna. Det första steget är att skapa en **konceptuell modell**, där fokus ligger helt på verksamhetslogik utan tekniska detaljer som primärnycklar, datatyper eller normalisering.
 
 När version 2 av modellen är färdig börjar strukturen bli tillräckligt stabil för att gå vidare med nästa steg:  
-[**Relationship Statements**](documentation/data_modeller.md).
+[**Relationship Statements**](Documentation/data_modeller.md).
 
 I detta skede dokumenteras varje relation mellan entiteter (1–1, 1–M eller M–M) och motiveras utifrån verksamhetskraven. Relationship statements fungerar som ett mellansteg mellan konceptuell och logisk modell och säkerställer att relationerna är korrekta innan jag går vidare till att bygga den **logiska modellen**, där tabeller, primärnycklar och bryggtabeller formaliseras.
 
@@ -78,10 +78,10 @@ I detta skede dokumenteras varje relation mellan entiteter (1–1, 1–M eller M
 
 
 <p align="center">
-  <img src="documentation/conceptuel_model/conceptuel_model_v1.png" width="300">
-  <img src="documentation/conceptuel_model/conceptuel_model_v2.png" width="300">
-  <img src="documentation/conceptuel_model/conceptuel_model_v3.png" width="300">
-  <img src="documentation/conceptuel_model/conceptuel_model_v4.png" width="300">
+  <img src="https://github.com/FellanNokes/data_modeling_lab_felix_kjellberg/blob/main/Documentation/conceptuel_model/conceptuel_model_v1.png?raw=true" width="300">
+  <img src="https://github.com/FellanNokes/data_modeling_lab_felix_kjellberg/blob/main/Documentation/conceptuel_model/conceptuel_model_v2.png?raw=true" width="300">
+  <img src="https://github.com/FellanNokes/data_modeling_lab_felix_kjellberg/blob/main/Documentation/conceptuel_model/conceptuel_model_v3.png?raw=true" width="300">
+  <img src="https://github.com/FellanNokes/data_modeling_lab_felix_kjellberg/blob/main/Documentation/conceptuel_model/conceptuel_model_v4.png?raw=true" width="300">
 </p>
 
 ## Logiska Modellen
@@ -135,10 +135,10 @@ Den fysiska modellen fick då:
 
 Det här visar hur viktigt det är att den logiska modellen är robust innan man går vidare.
 
-Bilder på [alla logiska modeller](documentation/logical_model)
+Bilder på [alla logiska modeller](Documentation/logical_model)
 
 Slutresultat:
-![Konceptuell modell](documentation/logical_model/logical_model_v10.png)
+<img src="https://github.com/FellanNokes/data_modeling_lab_felix_kjellberg/blob/main/Documentation/logical_model/logical_model_v10.png?raw=true">
 
 
 ## Fysiska Modellen
