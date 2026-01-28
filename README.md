@@ -1,12 +1,79 @@
 # Data modellering Lab
 
-## Konceptuella Modellen
-Jag börjar med att utgå från [kravspecifikationen](./documentation/kravspecifikation_databas_yrkesco_v1.1.md) och skapa en konceptuell modell baserad på den.  
-När jag är klar med version 2 av modellen känner jag mig redo att skapa [relationship statements](./documentation/data_modeller.md).  
-Där specificerar jag relationerna mellan de olika entiteterna, vilket gör att jag kan gå vidare och ta fram den logiska modellen.
+## Instruktioner för att testa databasen med Docker
+
+### 1. Se till att du har Docker Desktop och psql-klienten installerade
+
+Du behöver inte installera PostgreSQL-server lokalt — containern sköter det.  
+Det räcker att psql finns installerat på din dator.
 
 ---
-Bilder hur den konceptuella modellen utvecklas under projeketsgång(från vänster till höger)
+
+### 2. Skapa en `.env`-fil i projektets root-mapp
+
+Innehållet ska se ut ungefär så här (du kan ändra lösenord/databasnamn):
+
+![Env](./documentation/env_example.png)
+
+---
+
+### 3. Kör följande kommandon i terminalen i denna ordning
+
+Startar PostgreSQL-containern i bakgrunden:
+
+```bash
+docker compose up -d
+
+Öppnar en interaktiv terminal inuti containern:
+```bash
+docker exec -it yrkesco bash
+```
+
+Startar psql-klienten och ansluter till din databas:
+```bash
+psql -U postgres -d [Database name]
+```
+
+Skapar databasschemat, tabeller, constraints och triggers:
+```bash
+\i sql/ddl.sql 
+```
+
+Laddar korrekt fake data:
+```bash
+\i sql/dml.sql 
+```
+
+Laddar medvetet felaktig testdata (valfritt):
+```bash
+\i sql/dml_fail.sql
+```
+
+Kör queries för att testa databasen:
+```bash
+\i sql/queries.sql
+```
+
+
+## Konceptuella Modellen
+
+Arbetet börjar med att analysera och bryta ned kravspecifikationen:  
+[**Kravspecifikation för Yrkesco-databasen**](./documentation/kravspecifikation_databas_yrkesco_v1.1.md).
+
+Utifrån denna identifierar jag de centrala verksamhetsbehoven och tar fram de viktigaste entiteterna, deras attribut samt hur de relaterar till varandra. Det första steget är att skapa en **konceptuell modell**, där fokus ligger helt på verksamhetslogik utan tekniska detaljer som primärnycklar, datatyper eller normalisering.
+
+När version 2 av modellen är färdig börjar strukturen bli tillräckligt stabil för att gå vidare med nästa steg:  
+[**Relationship Statements**](./documentation/data_modeller.md).
+
+I detta skede dokumenteras varje relation mellan entiteter (1–1, 1–M eller M–M) och motiveras utifrån verksamhetskraven. Relationship statements fungerar som ett mellansteg mellan konceptuell och logisk modell och säkerställer att relationerna är korrekta innan jag går vidare till att bygga den **logiska modellen**, där tabeller, primärnycklar och bryggtabeller formaliseras.
+
+---
+
+### Utvecklingen av den konceptuella modellen  
+*Nedan visas bilder som illustrerar hur den konceptuella modellen har utvecklats steg för steg under projektets gång (från vänster till höger).*
+
+---
+
 
 
 <p align="center">
