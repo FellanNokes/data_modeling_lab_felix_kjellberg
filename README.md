@@ -13,7 +13,7 @@ Det räcker att psql finns installerat på din dator.
 
 Innehållet ska se ut ungefär så här (du kan ändra lösenord/databasnamn):
 
-![Env](documentation/env_example.png)
+<img src="https://github.com/FellanNokes/data_modeling_lab_felix_kjellberg/blob/main/Documentation/env_example.png?raw=true">
 
 ---
 
